@@ -1,0 +1,37 @@
+name: Build EXEs
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:   # lets you also trigger it manually from the Actions tab
+
+jobs:
+  build:
+    runs-on: windows-latest   # exe building has to happen on a windows runner
+
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      - name: Build cp-win.exe
+        run: pyinstaller --onefile --uac-admin cp-win.py
+
+      - name: Build cp-server.exe
+        run: pyinstaller --onefile --uac-admin cp-server.py
+
+      - name: Build cp-restore-win.exe
+        run: pyinstaller --onefile --uac-admin cp-restore-win.py
+
+      - name: Upload the exes
+        uses: actions/upload-artifact@v4
+        with:
+          name: cp-exes
+          path: dist/*.exe
