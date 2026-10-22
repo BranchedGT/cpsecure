@@ -1,4 +1,5 @@
 #!/bin/bash
+#Laife Shuman 10/22/2026
 #Linux Mint CyberPatriot Cleanup
 #Run it with: bash cp-harden.sh (it uses sudo when it needs it)
 #READ THE README FIRST, don't remove stuff it says you need
